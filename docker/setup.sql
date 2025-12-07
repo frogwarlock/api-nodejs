@@ -1,0 +1,1 @@
+CREATE DATABASE desafio_db_test;

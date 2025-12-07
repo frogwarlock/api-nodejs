@@ -34,7 +34,17 @@ export const getCourseByIdRoute: FastifyPluginAsyncZod = async (server) => {
             .from(courses)
             .where(eq(courses.id, courseId))
         
-        return result.length > 0 ? { course: result[0] } : reply.status(404)
+        if (result.length === 0) {
+            return reply.status(404).send()
+        }
+
+        return reply.status(200).send({
+            course: {
+                id: result[0].id,
+                title: result[0].title,
+                description: result[0].description ?? null,
+            }
+        })
             
     })
    

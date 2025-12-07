@@ -15,6 +15,34 @@
       "when": 1764975805285,
       "tag": "0001_unique_hardball",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765119023602,
+      "tag": "0002_crazy_hercules",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1765121671267,
+      "tag": "0003_typical_inhumans",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1765126914497,
+      "tag": "0004_purple_genesis",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1765129666394,
+      "tag": "0005_special_smiling_tiger",
+      "breakpoints": true
     }
   ]
 }
