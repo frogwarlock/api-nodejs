@@ -2,7 +2,7 @@ POST http://localhost:3333/courses
 Content-Type: application/json
 
 {
-    "title": "Python"
+    "title": "Curso de Docker 2"
 }
 
 ###
@@ -11,4 +11,4 @@ GET http://localhost:3333/courses
 
 ### 
 
-GET http://localhost:3333/courses/1
+GET http://localhost:3333/courses/7537efa1-b0bc-4144-ab4c-b74bb7b78a77
