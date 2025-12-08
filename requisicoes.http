@@ -1,8 +1,9 @@
 POST http://localhost:3333/courses
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyZGQ2NmVhNy1mMWJhLTRlMTYtOTI4YS1hMjg2ZjY0MDQ5MmMiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc2NTE1ODAzNH0.k_lpZJJN2uMiH-jwopzp6SYUJUxQ1VgmmrSPC-ByHtE
 
 {
-    "title": "Curso de Machine Learning"
+    "title": "Curso de React"
 }
 
 ###
@@ -11,4 +12,15 @@ GET http://localhost:3333/courses?
 
 ### 
 
-GET http://localhost:3333/courses/7537efa1-b0bc-4144-ab4c-b74bb7b78a77
+GET http://localhost:3333/courses/9f29a4d6-cd17-4eea-bc6e-92558d0bf80d
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyZGQ2NmVhNy1mMWJhLTRlMTYtOTI4YS1hMjg2ZjY0MDQ5MmMiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc2NTE1NjQ3NX0.LhIBTocm4r496N4uUNO-aHJphJl4tCZoMbVq9S_v7eM
+
+###
+
+POST http://localhost:3333/sessions
+Content-Type: application/json
+
+{
+    "email": "Pablo91@hotmail.com",
+    "password": "123456"
+}

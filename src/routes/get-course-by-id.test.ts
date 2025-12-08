@@ -1,32 +1,37 @@
-import { test, expect } from  'vitest';
-import  request from 'supertest';
-import { server } from '../app.ts';
-import { MakeCourse } from '../tests/factories/make-course.ts';
+import { test, expect } from 'vitest'
+import request from 'supertest'
+import { server } from '../app.ts'
+import { makeCourse } from '../tests/factories/make-course.ts'
+import { makeAuthenticatedUser } from '../tests/factories/make-user.ts'
 
-test('get course by id succefully', async () => {
-    await server.ready()
+test('get course by id', async () => {
+  await server.ready()
 
-    const course = await MakeCourse()
-
-    const response = await request(server.server)
-        .get(`/courses/${course.id}`)
-    
-        expect(response.status).toEqual(200)
-        expect(response.body).toEqual({
-            course: {
-                id: expect.any(String),
-                title: expect.any(String),
-                description: null,
-            }
-        })
-    })
-
-test('return 404 when course not found', async () => {
-    
-  const nonExistingId = 'c4e5e9c2-7f3a-4b9a-9e5e-2f6d8a3b1c74'
+  const { token } = await makeAuthenticatedUser('student')
+  const course = await makeCourse()
 
   const response = await request(server.server)
-    .get(`/courses/${nonExistingId}`)
+    .get(`/courses/${course.id}`)
+    .set('Authorization', token)
+
+  expect(response.status).toEqual(200)
+  expect(response.body).toEqual({
+    course: {
+      id: expect.any(String),
+      title: expect.any(String),
+      description: null,
+    }
+  })
+})
+
+test('return 404 for non existing courses', async () => {
+  await server.ready()
+
+  const { token } = await makeAuthenticatedUser('student')
+
+  const response = await request(server.server)
+    .get(`/courses/00000000-0000-0000-0000-000000000000`)
+    .set('Authorization', token)
 
   expect(response.status).toEqual(404)
 })

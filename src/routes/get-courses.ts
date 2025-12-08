@@ -7,6 +7,9 @@ import z from 'zod'
 export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
 
     server.get('/courses', {
+        preHandler: [
+            
+        ],
         schema: {
             tags: ['courses'],
             summary: 'Get all courses',

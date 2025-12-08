@@ -43,6 +43,13 @@
       "when": 1765129666394,
       "tag": "0005_special_smiling_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1765151821935,
+      "tag": "0006_curvy_madripoor",
+      "breakpoints": true
     }
   ]
 }
