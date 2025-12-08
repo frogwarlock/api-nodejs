@@ -1,5 +1,5 @@
-
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 # Desafio Node.js (Fastify + Zod)
 
 API em Node.js usando Fastify com validação via Zod, documentação OpenAPI e UI via Scalar.
@@ -43,36 +43,41 @@ Este projeto não usa banco de dados por padrão.
 
 ```mermaid
 flowchart TD
-    A[Cliente HTTP] -->|Request| B{Fastify Server}
+    A[Cliente HTTP] -->|Request| B[Fastify Server]
     B --> C[Validator Compiler - Zod]
     C -->|Validação OK| D{Roteamento}
-    C -->|Validação Falha| E[400 Bad Request]
-    
+    C -->|Validação Falha| E[Retorna 400 Bad Request]
+
     D -->|POST /courses| F[createCourseRoute]
     D -->|GET /courses| G[getCoursesRoute]
     D -->|GET /courses/:id| H[getCourseByIdRoute]
-    
-    F --> I[Cria Curso]
-    G --> J[Lista Cursos]
-    H --> K{Curso Existe?}
-    
-    K -->|Sim| L[Retorna Curso]
-    K -->|Não| M[404 Not Found]
-    
-    I --> N[Serializer Compiler - Zod]
-    J --> N
-    L --> N
-    
-    N -->|Response| O[201/200 OK]
-    O --> A
+
+    F --> I[Armazena Curso na Lista]
+    I --> J[Serializer Compiler - Zod]
+    J --> K[Retorna 201 Created]
+
+    G --> L[Busca Todos os Cursos]
+    L --> M[Serializer Compiler - Zod]
+    M --> N[Retorna 200 OK com Lista]
+
+    H --> O{Curso Existe?}
+    O -->|Sim| P[Serializer Compiler - Zod]
+    O -->|Não| Q[Retorna 404 Not Found]
+    P --> R[Retorna 200 OK com Curso]
+
+    K --> A
+    N --> A
+    R --> A
     E --> A
-    M --> A
-    
+    Q --> A
+
     style B fill:#2ea44f
     style C fill:#0969da
-    style N fill:#0969da
+    style J fill:#0969da
+    style M fill:#0969da
+    style P fill:#0969da
     style E fill:#cf222e
-    style M fill:#cf222e
+    style Q fill:#cf222e
 ```
 
 ## Endpoints
@@ -94,11 +99,23 @@ Cria um novo curso.
 
 **Response:** `201 Created`
 
+```json
+{
+  "id": "1",
+  "title": "Node.js Básico",
+  "description": "Introdução ao Node.js"
+}
+```
+
+**Erros:**
+
+- `400 Bad Request` - Dados inválidos (title ou description ausentes/inválidos)
+
 ---
 
 #### GET `/courses`
 
-Lista todos os cursos.
+Lista todos os cursos cadastrados.
 
 **Response:** `200 OK`
 
@@ -108,6 +125,11 @@ Lista todos os cursos.
     "id": "1",
     "title": "Node.js Básico",
     "description": "Introdução ao Node.js"
+  },
+  {
+    "id": "2",
+    "title": "TypeScript Avançado",
+    "description": "Conceitos avançados de TypeScript"
   }
 ]
 ```
@@ -116,11 +138,11 @@ Lista todos os cursos.
 
 #### GET `/courses/:id`
 
-Obtém um curso por ID.
+Obtém um curso específico por ID.
 
-**Params:**
+**Parâmetros de Rota:**
 
-- `id` - ID do curso
+- `id` (string) - ID do curso
 
 **Response:** `200 OK`
 
@@ -135,10 +157,11 @@ Obtém um curso por ID.
 **Erros:**
 
 - `404 Not Found` - Curso não encontrado
+- `400 Bad Request` - ID inválido
 
 ---
 
-Validação: `validatorCompiler` (entrada) e `serializerCompiler` (saída) com Zod.
+**Observação:** Todos os endpoints utilizam `validatorCompiler` (validação de entrada) e `serializerCompiler` (serialização de saída) com Zod para garantir consistência e type-safety.
 
 ## Dicas
 
